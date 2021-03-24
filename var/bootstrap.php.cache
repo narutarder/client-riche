@@ -1439,4 +1439,4 @@ return $clientIps ? array_reverse($clientIps) : [$firstTrustedIp];
 }
 }
 }
-namespace {require __DIR__.'/../../../symfony/vendor/symfony/symfony/src/Symfony/Component/ClassLoader/ClassCollectionLoader.php';}
+namespace {require 'C:/Users/arthu/symfony/vendor/symfony/symfony/src/Symfony/Component/ClassLoader/ClassCollectionLoader.php';}

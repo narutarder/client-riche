@@ -4,10 +4,10 @@
         <meta charset="UTF-8" />
         <title>Welcome!</title>
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-		
+
         {% include 'header.html' %}
 		<script type="text/javascript">
-			jQuery(document).ready(function () { 
+			jQuery(document).ready(function () {
 {% for article in articles %}
 {% if article.pistes is defined %}
 {% if article.pistes|length > 0 %}
@@ -35,7 +35,7 @@
 			<div id="inner-wrapper">
 				<header id="header" class="col-full">
 					<div id="logo">
-						<h1 class="site-title">Site web marchand</h1>
+						<h1 class="site-title">TD Client-Riche</h1>
 					</div>
 				</header>
 				<nav id="navigation" class="col-full" role="navigation">
@@ -45,6 +45,12 @@
 							<a href="/afficheRecherche">Rechercher
 								un article</a>
 						</li>
+            <li class="deroulant"><a href="#">Articles &ensp;</a>
+              <ul class="sous">
+                <li><a href="#">Musics</a></li>
+                <li><a href="#">Livres</a></li>
+              </ul>
+            </li>
 						<li id="menu-item-290"
 							class="menu-item menu-item-type-custom menu-item-object-custom">
 							<a href="/accederAuPanier">Panier</a>
@@ -99,7 +105,7 @@
 														plugin</a>.
 												</div>
 											</div>
-										</div> 
+										</div>
 											{% endif %}
 										{% endif %}
 									{% endfor %}
