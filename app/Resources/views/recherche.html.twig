@@ -1,35 +1,41 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>Welcome!</title>
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+	<head>
+		<meta charset="UTF-8"/>
+		<title>Welcome!</title>
+		<link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
 
-        {% include 'header.html' %}
+		{% include 'header.html' %}
 		<script type="text/javascript">
 			jQuery(document).ready(function () {
 {% for article in articles %}
 {% if article.pistes is defined %}
 {% if article.pistes|length > 0 %}
-					var myPlaylist_{{ article.refArticle }}= new jPlayerPlaylist({
-					cssSelectorAncestor : '#jp_container_{{ article.refArticle }}',
-					jPlayer: '#jquery_jplayer_{{ article.refArticle }}'}, [
-					{% for piste in article.pistes %}
-						{ title:'{{ piste.titre }}', mp3:'{{ piste.url }}' },
-					{% endfor %}
-					], { swfPath : '/js/jplayer-2.9.2/jplayer', supplied : 'mp3', wmode: 'window',
-					useStateClassSkin: true, autoBlur: false, smoothPlayBar: true,
-					keyEnabled: true });
-					var jp_playlist_tab = document.getElementsByClassName('jp-playlist') ;
-					for (i = 0; i < jp_playlist_tab.length; i++) {
-						jp_playlist_tab[i].style.display = 'none';
-					}
+var myPlaylist_{{ article.refArticle }} = new jPlayerPlaylist({
+cssSelectorAncestor: '#jp_container_{{ article.refArticle }}',
+jPlayer: '#jquery_jplayer_{{ article.refArticle }}'
+}, [{% for piste in article.pistes %}{
+title:'{{ piste.titre }}',
+mp3:'{{ piste.url }}'
+},{% endfor %}], {
+swfPath: '/js/jplayer-2.9.2/jplayer',
+supplied: 'mp3',
+wmode: 'window',
+useStateClassSkin: true,
+autoBlur: false,
+smoothPlayBar: true,
+keyEnabled: true
+});
+var jp_playlist_tab = document.getElementsByClassName('jp-playlist');
+for (i = 0; i < jp_playlist_tab.length; i ++) {
+jp_playlist_tab[i].style.display = 'none';
+}
 {% endif %}
 {% endif %}
 {% endfor %}
-			});
+});
 		</script>
-    </head>
+	</head>
 	<body>
 		<div id="wrapper">
 			<div id="inner-wrapper">
@@ -40,22 +46,28 @@
 				</header>
 				<nav id="navigation" class="col-full" role="navigation">
 					<ul id="main-nav" class="nav fl">
-						<li id="menu-item-290"
-							class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item">
-							<a href="/afficheRecherche">Rechercher
-								un article</a>
+						<li id="menu-item-290" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item">
+							<a href="/afficheRecherche">Rechercher un article</a>
 						</li>
-            <li class="deroulant"><a href="#">Articles &ensp;</a>
-              <ul class="sous">
-                <li><a href="#">Musics</a></li>
-                <li><a href="#">Livres</a></li>
-              </ul>
-            </li>
-						<li id="menu-item-290"
-							class="menu-item menu-item-type-custom menu-item-object-custom">
+						<li class="deroulant">
+							<a href="#">Articles &ensp;</a>
+							<ul class="sous">
+								<li>
+									<a href="#">Musics</a>
+								</li>
+								<li>
+									<a href="#">Livres</a>
+								</li>
+							</ul>
+						</li>
+						<li id="menu-item-290" class="menu-item menu-item-type-custom menu-item-object-custom">
 							<a href="/accederAuPanier">Panier</a>
 						</li>
 					</ul>
+					<div class="search">
+						<input type="search" id="site-search" placeholder="Mot Clé">
+						<button class="btn">Rechercher</button>
+					</div>
 				</nav>
 				<div id="content" class="site-content" tabindex="-1">
 					<div class="col-full">
@@ -64,58 +76,75 @@
 								<h1 class="page-title">Résultats de la recherche</h1>
 								<ul class="products">
 									{% for article in articles %}
-									<li class="product type-product"><a
-										href="/ajouterLigne?refArticle={{ article.refArticle }}"> <img
-											src="{{ article.image }}"
-											class="attachment-shop_catalog wp-post-image" alt="poster_2_up"
-											height="300"/>
-											<h3>{{ article.titre }}</h3> <span class="price"><ins>
-													<span class="amount">{{ article.prix }} €</span>
-												</ins></span>
+										<li class="product type-product">
+											<a href="/ajouterLigne?refArticle={{ article.refArticle }}">
+												<img src="{{ article.image }}" class="attachment-shop_catalog wp-post-image" alt="poster_2_up" height="300"/>
+												<h3>{{ article.titre }}</h3>
+												<span class="price">
+													<ins>
+														<span class="amount">{{ article.prix }}
+															€</span>
+													</ins>
+												</span>
 
-									</a> <a
-										href="/ajouterLigne?refArticle={{ article.refArticle }}"
-										class="button add_to_cart_button product_type_simple">Mettre
-											dans le panier</a>
+											</a>
+											<a href="/ajouterLigne?refArticle={{ article.refArticle }}" class="button add_to_cart_button product_type_simple">Mettre
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											dans le panier</a>
 
-										{% if article.pistes is defined %}
-											{% if article.pistes|length > 0 %}
-										<div id="jquery_jplayer_{{ article.refArticle }}" class="jp-jplayer"></div>
-										<div id="jp_container_{{ article.refArticle }}" class="jp-audio" role="application">
-											<div class="jp-type-playlist">
-												<div class="jp-gui jp-interface">
-													<div class="jp-controls-holder">
-														<div class="jp-controls">
-															<button class="jp-previous" role="button" tabindex="0">previous</button>
-															<button class="jp-play" role="button" tabindex="0">play</button>
-															<button class="jp-stop" role="button" tabindex="0">stop</button>
-															<button class="jp-next" role="button" tabindex="0">next</button>
+											{% if article.pistes is defined %}
+												{% if article.pistes|length > 0 %}
+													<div id="jquery_jplayer_{{ article.refArticle }}" class="jp-jplayer"></div>
+													<div id="jp_container_{{ article.refArticle }}" class="jp-audio" role="application">
+														<div class="jp-type-playlist">
+															<div class="jp-gui jp-interface">
+																<div class="jp-controls-holder">
+																	<div class="jp-controls">
+																		<button class="jp-previous" role="button" tabindex="0">previous</button>
+																		<button class="jp-play" role="button" tabindex="0">play</button>
+																		<button class="jp-stop" role="button" tabindex="0">stop</button>
+																		<button class="jp-next" role="button" tabindex="0">next</button>
+																	</div>
+																</div>
+															</div>
+															<div class="jp-playlist">
+																<ul>
+																	<li>&nbsp;</li>
+																</ul>
+															</div>
+															<div class="jp-no-solution">
+																<span>Update Required</span>
+																To play the media you will need to
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																													either update your browser to a recent version or update your
+																<a href="http://get.adobe.com/flashplayer/" target="_blank">Flash
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																														plugin</a>.
+															</div>
 														</div>
 													</div>
-												</div>
-												<div class="jp-playlist">
-													<ul>
-														<li>&nbsp;</li>
-													</ul>
-												</div>
-												<div class="jp-no-solution">
-													<span>Update Required</span> To play the media you will need to
-													either update your browser to a recent version or update your <a
-														href="http://get.adobe.com/flashplayer/" target="_blank">Flash
-														plugin</a>.
-												</div>
-											</div>
-										</div>
+												{% endif %}
 											{% endif %}
-										{% endif %}
-									{% endfor %}
-								</ul>
-							</section>
+										{% endfor %}
+									</ul>
+								</section>
+							</div>
 						</div>
 					</div>
+					{% include 'footer.html' %}
 				</div>
-        {% include 'footer.html' %}
 			</div>
-		</div>
-	</body>
-</html>
+		</body>
+		<script type="text/javascript">
+		$(document).on('click', '.btn', function () {
+			console.log("test");
+$.ajax('{{ path("afficheRechercheParMotCle") }}', {
+data: {
+"motCle": "S3"
+},
+success: function (data) { console.log("ok");
+},
+error: function () { console.log("error");
+}
+});
+return false; // this stops normal button behaviour from executing;
+
+});</script>
+</body></html>
