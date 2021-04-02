@@ -21,10 +21,10 @@
 							<a href="/afficheRecherche">Rechercher
 								un article</a>
 						</li>
-            <li class="deroulant"><a href="#">Articles &ensp;</a>
+            <li class="deroulant"><a href="/articles">Articles &ensp;</a>
               <ul class="sous">
-                <li><a href="#">Musics</a></li>
-                <li><a href="#">Livres</a></li>
+                <li><a href="/music">Musiques</a></li>
+                <li><a href="/livre">Livres</a></li>
               </ul>
             </li>
 						<li id="menu-item-290"
@@ -39,7 +39,7 @@
 							<div class="woocommerce">
 								<form
 									action="/recalculerPanier"
-									name="panier" method="post">
+									name="panier" method="post" id="panier">
 									<table class="shop_table cart" cellspacing="0">
 										<thead>
 											<tr>
@@ -66,7 +66,7 @@
 												<td class="product-price"><span class="amount">{{ lignePanier.prixUnitaire }}€</span></td>
 												<td class="product-quantity">
 													<div class="quantity">
-														<input class="input-text qty text" type="number" size="4"
+														<input class="input-text qty text" id="qts" type="number" size="4"
 															title="Qty" value="{{ lignePanier.quantite }}"
 															name="cart[{{ lignePanier.article.refArticle }}][qty]"
 															min="1" step="1">
@@ -75,10 +75,7 @@
 												<td class="product-subtotal"><span class="amount">{{ lignePanier.prixTotal }}€</span></td>
 											</tr>
 											{% endfor %}
-											<tr>
-												<td class="actions" colspan="6"><input class="button"
-													type="submit" value="Mise à jour du panier" name="update_cart" /></td>
-											</tr>
+											<input id="btn" class="button" type="submit" value="Mise à jour du panier" name="update_cart" style="display:none;"/>
 										</tbody>
 									</table>
 								</form>
@@ -90,7 +87,7 @@
 											<tbody>
 												<tr class="cart-subtotal">
 													<th>Sous-total</th>
-													<td><span class="amount">{{ panier.total }}€</span></td>
+													<td><span class="amount">{{panier.total}}€</span></td>
 												</tr>
 												<tr class="shipping">
 													<th>Frais de port</th>
@@ -98,8 +95,7 @@
 												</tr>
 												<tr class="order-total">
 													<th>Total</th>
-													<td><strong> <span class="amount">{{ panier.total }}€</span>
-													</strong></td>
+													<td><strong><span class="amount">{{panier.total}}€</span></strong></td>
 												</tr>
 											</tbody>
 										</table>
@@ -118,5 +114,17 @@
         {% include 'footer.html' %}
 			</div>
 		</div>
+		<script>
+			var btn = document.getElementById('btn');
+
+			document.getElementById("qts").onchange = function () {
+				console.log("ok");
+				update();
+			}
+
+			function update(){
+				btn.click();
+			}
+		</script>
 	</body>
 </html>

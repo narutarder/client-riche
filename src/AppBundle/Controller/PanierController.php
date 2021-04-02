@@ -135,4 +135,25 @@ class PanierController extends Controller
     {
 		return $this->render('commande.html.twig');
     }
+
+	/**
+     * @Route("/reset", name="reset")
+     */
+    public function reset(Request $request)
+    {
+		$this->init() ;
+		$session = $request->getSession() ;
+		if (!$session->isStarted())
+			$session->start() ;	
+		if ($session->has("panier"))
+			$this->panier = new Panier() ;
+		else
+			$this->panier = new Panier() ;
+		if (sizeof($this->panier->getLignesPanier()) === 0)
+			return $this->render('panier.vide.html.twig');
+		else
+			return $this->render('panier.html.twig', [
+				'panier' => $this->panier,
+			]);
+    }
 }

@@ -50,13 +50,13 @@ jp_playlist_tab[i].style.display = 'none';
 							<a href="/afficheRecherche">Rechercher un article</a>
 						</li>
 						<li class="deroulant">
-							<a href="#">Articles &ensp;</a>
+							<a href="/articles">Articles &ensp;</a>
 							<ul class="sous">
 								<li>
-									<a href="#">Musics</a>
+									<a href="/music">Musiques</a>
 								</li>
 								<li>
-									<a href="#">Livres</a>
+									<a href="/livre">Livres</a>
 								</li>
 							</ul>
 						</li>
@@ -73,7 +73,15 @@ jp_playlist_tab[i].style.display = 'none';
 					<div class="col-full">
 						<div class="primary" class="content-area">
 							<section id="main" class="site-main" role="main">
+							{% if recherche == false %}
+								<h1 class="page-title">Articles</h1>
+							{% elseif recherche == true %}
 								<h1 class="page-title">Résultats de la recherche</h1>
+							{% elseif recherche == "music" %}
+								<h1 class="page-title">Musiques</h1>
+							{% elseif recherche == "livre" %}
+								<h1 class="page-title">Livres</h1>
+							{% endif %}
 								<ul class="products">
 									{% for article in articles %}
 										<li class="product type-product">

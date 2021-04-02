@@ -40,6 +40,7 @@ class RechercheController extends Controller
 		$articles = $query->getResult();
 		return $this->render('recherche.html.twig', [
             'articles' => $articles,
+			'recherche' => true,
         ]);
     }
 	
@@ -57,6 +58,49 @@ class RechercheController extends Controller
 		$articles = $query->getResult();
 		return $this->render('recherche.html.twig', [
             'articles' => $articles,
+			'recherche' => true,
+        ]);
+    }
+
+	/**
+     * @Route("/music", name="music")
+     */
+    public function music(Request $request, LoggerInterface $logger)
+    {
+		$this->initAmazon() ;
+		$query = $this->entityManager->createQuery("SELECT a FROM AppBundle\Entity\Catalogue\Article a where a INSTANCE OF AppBundle\Entity\Catalogue\Musique");
+		$articles = $query->getResult();
+		return $this->render('recherche.html.twig', [
+            'articles' => $articles,
+			'recherche' => "music",
+        ]);
+    }
+
+	/**
+     * @Route("/livre", name="livre")
+     */
+    public function livre(Request $request, LoggerInterface $logger)
+    {
+		$this->initAmazon() ;
+		$query = $this->entityManager->createQuery("SELECT a FROM AppBundle\Entity\Catalogue\Article a where a INSTANCE OF AppBundle\Entity\Catalogue\Livre");
+		$articles = $query->getResult();
+		return $this->render('recherche.html.twig', [
+            'articles' => $articles,
+			'recherche' => "livre",
+        ]);
+    }
+
+	/**
+     * @Route("/articles", name="articles")
+     */
+    public function articles(Request $request, LoggerInterface $logger)
+    {
+		$this->initAmazon() ;
+		$query = $this->entityManager->createQuery("SELECT a FROM AppBundle\Entity\Catalogue\Article a");
+		$articles = $query->getResult();
+		return $this->render('recherche.html.twig', [
+            'articles' => $articles,
+			'recherche' => false,
         ]);
     }
 	
